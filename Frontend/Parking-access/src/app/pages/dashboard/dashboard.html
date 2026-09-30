@@ -1,0 +1,33 @@
+<section class="page-heading">
+  <div><span class="eyebrow">CENTRO DE CONTROL</span><h1>Resumen operativo</h1><p>{{ today | date:'EEEE, d MMMM y' }}</p></div>
+  <div class="page-actions">
+    <button mat-stroked-button type="button" (click)="downloadPdf()" [disabled]="loading()"><mat-icon>picture_as_pdf</mat-icon> Descargar PDF</button>
+    <a mat-flat-button color="primary" routerLink="/operaciones"><mat-icon>swap_vert</mat-icon> Registrar movimiento</a>
+  </div>
+</section>
+
+@if (loadError()) {
+  <div class="notice" role="status"><mat-icon>info</mat-icon> Algunas cifras no están disponibles. Verifica que el backend esté activo en localhost:8080.</div>
+}
+
+<section class="metrics" aria-label="Indicadores del estacionamiento">
+  <article class="metric"><span class="metric-label">VEHÍCULOS REGISTRADOS</span><strong>{{ vehicleCount() }}</strong><span class="metric-foot"><mat-icon>directions_car</mat-icon> En el catálogo</span></article>
+  <article class="metric metric-active"><span class="metric-label">DENTRO DEL ESTACIONAMIENTO</span><strong>{{ activeStays().length }}</strong><span class="metric-foot"><mat-icon>meeting_room</mat-icon> Estancias activas</span></article>
+  <article class="metric"><span class="metric-label">RESIDENTES DEL MES</span><strong>{{ report()?.totalResidentes ?? '—' }}</strong><span class="metric-foot"><mat-icon>home</mat-icon> Con acumulado</span></article>
+  <article class="metric metric-bill"><span class="metric-label">COBRO ACUMULADO</span><strong>{{ report()?.totalCobro ?? 0 | currency:'MXN':'symbol-narrow':'1.2-2':'es-MX' }}</strong><span class="metric-foot"><mat-icon>payments</mat-icon> Corte actual</span></article>
+</section>
+
+<section class="activity">
+  <div class="section-heading"><div><span class="eyebrow">EN TIEMPO REAL</span><h2>Estancias activas</h2></div><a mat-button routerLink="/vehiculos">Ver vehículos <mat-icon>arrow_forward</mat-icon></a></div>
+  @if (loading()) {
+    <div class="empty-state"><span class="pulse"></span> Consultando el estacionamiento…</div>
+  } @else if (activeStays().length === 0) {
+    <div class="empty-state"><mat-icon>local_parking</mat-icon><span>No hay vehículos dentro en este momento.</span></div>
+  } @else {
+    <div class="table-scroll"><table><thead><tr><th>PLACA</th><th>HORA DE ENTRADA</th><th>ESTADO</th><th></th></tr></thead><tbody>
+      @for (stay of activeStays(); track stay.id) {
+        <tr><td class="plate">{{ stay.placa }}</td><td>{{ stay.fechaHoraEntrada | date:'d MMM, HH:mm' }}</td><td><span class="active-label"><i></i> Dentro</span></td><td><a mat-button [routerLink]="['/vehiculos', stay.placa]">Detalle</a></td></tr>
+      }
+    </tbody></table></div>
+  }
+</section>

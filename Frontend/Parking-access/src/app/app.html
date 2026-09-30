@@ -1,0 +1,37 @@
+<mat-sidenav-container class="workspace">
+  <mat-sidenav class="sidebar" mode="side" opened>
+    <a class="brand" routerLink="/" aria-label="Parking Access, inicio">
+      <span class="brand-mark"><mat-icon>local_parking</mat-icon></span>
+      <span><strong>NEOLOGY</strong><small>Parking Access</small></span>
+    </a>
+
+    <span class="nav-caption">OPERACIÓN</span>
+    <nav aria-label="Navegación principal">
+      <a mat-button routerLink="/" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon>space_dashboard</mat-icon><span>Resumen</span>
+      </a>
+      <a mat-button routerLink="/vehiculos" routerLinkActive="selected">
+        <mat-icon>directions_car</mat-icon><span>Vehículos</span>
+      </a>
+      <a mat-button routerLink="/operaciones" routerLinkActive="selected">
+        <mat-icon>swap_vert</mat-icon><span>Entradas y salidas</span>
+      </a>
+      <a mat-button routerLink="/reportes" routerLinkActive="selected">
+        <mat-icon>receipt_long</mat-icon><span>Pagos residentes</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer" aria-label="Desarrollado por Gustavo Flores">
+      <span class="credit-initials" aria-hidden="true">GF</span>
+      <span class="credit-copy"><small>Desarrollado por</small><strong>Gustavo Flores</strong></span>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <header class="topbar">
+      <div class="breadcrumb">ESTACIONAMIENTO <span>/</span> CONTROL</div>
+      <a mat-stroked-button routerLink="/operaciones" aria-label="Nueva operación"><mat-icon>add</mat-icon><span class="topbar-action-label">Nueva operación</span></a>
+    </header>
+    <main class="content"><router-outlet /></main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

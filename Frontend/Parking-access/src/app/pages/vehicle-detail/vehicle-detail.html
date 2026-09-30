@@ -1,0 +1,17 @@
+<button mat-button class="back" (click)="goBack()"><mat-icon>arrow_back</mat-icon> Volver</button>
+@if (loading()) { <div class="state"><mat-spinner diameter="32" aria-label="Cargando detalle"></mat-spinner></div> }
+@else if (error()) { <div class="state error"><mat-icon>info</mat-icon><p>{{ error() }}</p></div> }
+@else if (vehicle(); as detail) {
+  <section class="page-heading"><div><span class="eyebrow">FICHA DE VEHÍCULO</span><h1>{{ detail.placa }}</h1><p>{{ detail.tipo.replace('_', ' ') }}</p></div><div class="detail-actions"><button mat-stroked-button type="button" (click)="downloadPdf()"><mat-icon>picture_as_pdf</mat-icon> Descargar PDF</button><span class="status" [class.inside]="detail.estanciaActiva"><i></i>{{ detail.estanciaActiva ? 'Dentro del estacionamiento' : 'Fuera del estacionamiento' }}</span></div></section>
+  <section class="summary">
+    <article><span>FECHA DE ALTA</span><strong>{{ detail.fechaAlta | date:'d MMMM y, HH:mm' }}</strong></article>
+    <article><span>TIEMPO ACUMULADO</span><strong>{{ detail.tiempoAcumulado == null ? 'No aplica' : detail.tiempoAcumulado + ' min' }}</strong></article>
+    <article><span>ESTANCIAS REGISTRADAS</span><strong>{{ detail.totalEstancias }}</strong></article>
+  </section>
+  <section class="history"><div class="section-heading"><div><span class="eyebrow">MOVIMIENTOS</span><h2>Historial de estancias</h2></div></div>
+    @if (detail.estancias.length === 0) { <div class="state">No hay estancias registradas para este vehículo.</div> }
+    @else { <div class="table-scroll"><table><thead><tr><th>ENTRADA</th><th>SALIDA</th><th>DURACIÓN</th><th>IMPORTE</th><th>ESTADO</th></tr></thead><tbody>
+      @for (stay of detail.estancias; track stay.id) { <tr><td>{{ stay.fechaHoraEntrada | date:'d MMM y, HH:mm' }}</td><td>{{ stay.fechaHoraSalida ? (stay.fechaHoraSalida | date:'d MMM y, HH:mm') : '—' }}</td><td>{{ stay.minutos == null ? '—' : stay.minutos + ' min' }}</td><td>{{ stay.importe == null ? '—' : (stay.importe | currency:'MXN':'symbol-narrow':'1.2-2':'es-MX') }}</td><td><span class="status" [class.inside]="stay.activa"><i></i>{{ stay.activa ? 'Activa' : 'Finalizada' }}</span></td></tr> }
+    </tbody></table></div> }
+  </section>
+}

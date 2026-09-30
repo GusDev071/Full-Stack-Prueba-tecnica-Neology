@@ -1,0 +1,45 @@
+.page-heading { margin-bottom: 25px; }
+.eyebrow { color: #73817c; font-family: "Space Mono", monospace; font-size: 10px; letter-spacing: 1px; }
+h1, h2, p { margin: 0; }
+h1 { margin-top: 7px; color: #1e342e; font-size: 29px; font-weight: 600; }
+.page-heading p { margin-top: 7px; color: #718079; font-size: 13px; }
+.operation-tabs { width: 100%; min-width: 0; border: 1px solid #e1e7e3; border-radius: 7px; background: white; }
+.form-panel { max-width: 760px; min-width: 0; padding: 30px 28px 32px; }
+.panel-intro { display: flex; align-items: center; gap: 13px; margin-bottom: 25px; }
+.icon-box { display: grid; width: 42px; height: 42px; flex: 0 0 auto; place-items: center; border-radius: 8px; background: #e8efdc; color: #557334; }
+.icon-box.exit { background: #e3ece8; color: #456c60; }
+.icon-box.warning { background: #fff2d4; color: #9b7125; }
+h2 { color: #253b34; font-size: 17px; font-weight: 600; }
+.panel-intro p { margin-top: 4px; color: #78857f; font-size: 12px; }
+form { display: grid; min-width: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 14px; }
+form button { width: max-content; min-height: 42px; margin-top: 2px; }
+form button mat-icon, .reset-button mat-icon { margin-right: 5px; }
+.warning-box { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; padding: 12px; border-left: 3px solid #d7aa43; background: #fff7e4; color: #66582e; }
+.warning-box mat-icon { flex: 0 0 auto; }
+.warning-box p { font-size: 12px; }
+.reset-button { display: flex; margin-top: 22px; }
+.notice { display: flex; align-items: center; gap: 10px; margin: 0 0 16px; padding: 13px 15px; border: 1px solid #dce8ce; border-left: 3px solid #82a844; background: #f4f8ed; color: #45612c; font-size: 12px; }
+.notice.failure { border-color: #ecd9d4; border-left-color: #bd6252; background: #fff4f1; color: #85493d; }
+.notice mat-icon { flex: 0 0 auto; font-size: 19px; }
+.busy { display: flex; align-items: center; gap: 10px; padding: 15px 2px; color: #73817b; font-size: 12px; }
+@media (max-width: 640px) { h1 { font-size: 24px; } .form-panel { padding: 22px 16px; } form { grid-template-columns: 1fr; } form button { width: 100%; } .panel-intro { align-items: flex-start; } }
+.form-panel { max-width: none; }
+.operation-layout { display: grid; min-width: 0; grid-template-columns: minmax(0, 1.6fr) minmax(260px, .8fr); align-items: stretch; gap: 24px; }
+.operation-layout form { align-content: start; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 16px; }
+.operation-layout form button[type="submit"] { grid-column: 1 / -1; width: max-content; min-height: 44px; margin-top: 4px; }
+.operation-layout form button[mat-icon-button] { color: #496257; }
+.operation-layout form button[mat-icon-button] mat-icon { margin: 0; }
+.rate-card { display: flex; min-height: 220px; flex-direction: column; justify-content: center; padding: 24px; border: 1px solid #e2e9d9; border-radius: 7px; background: #f6f8f2; }
+.rate-card-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+.rate-mark { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 8px; background: #e8efdc; color: #5e7737; }
+.rate-mark.exit { background: #e3ece8; color: #456c60; }
+.rate-card h3 { margin: 4px 0 0; color: #2b4038; font-size: 15px; font-weight: 600; }
+.rate-list { margin: 0; }
+.rate-list > div { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 0; border-top: 1px solid #e3e9dd; }
+.rate-list dt { color: #63736b; font-size: 12px; }
+.rate-list dd { margin: 0; color: #344c40; font-family: "Space Mono", monospace; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.rate-list dd small { color: #74827a; font-family: "DM Sans", sans-serif; font-size: 10px; font-weight: 400; }
+.rate-note { display: flex; align-items: flex-start; gap: 8px; margin-top: 14px; color: #738079; font-size: 11px; line-height: 1.5; }
+.rate-note mat-icon { width: 17px; height: 17px; flex: 0 0 auto; color: #83934f; font-size: 17px; }
+@media (max-width: 900px) { .operation-layout { grid-template-columns: minmax(0, 1fr); } .rate-card { min-height: auto; } }
+@media (max-width: 640px) { .form-panel { padding: 22px 14px; } .operation-layout form { grid-template-columns: minmax(0, 1fr); gap: 6px; } .operation-layout form button[type="submit"] { width: 100%; } .rate-card { padding: 16px; } }

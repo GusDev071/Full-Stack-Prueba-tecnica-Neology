@@ -1,0 +1,5 @@
+.prompt { margin: 0 0 20px; color: #74817b; font-size: 13px; }
+.time-fields { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 10px; }
+.time-fields mat-form-field { min-width: 0; }
+.separator { margin-top: -20px; color: #476054; font-family: "Space Mono", monospace; font-size: 20px; }
+.time-preview { margin: 0 0 4px; color: #294238; font-family: "Space Mono", monospace; font-size: 34px; font-weight: 700; text-align: center; }

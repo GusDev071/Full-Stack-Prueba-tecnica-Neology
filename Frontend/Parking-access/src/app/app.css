@@ -1,0 +1,56 @@
+:host { display: block; height: 100vh; height: 100dvh; overflow: hidden; }
+.workspace { min-width: 0; height: 100vh; height: 100dvh; overflow: hidden; background: #f4f6f5; }
+.sidebar { width: 246px; height: 100%; max-height: 100dvh; flex: 0 0 246px; padding: 25px 15px 18px; border: 0; background: #152a27; color: #f4f4ed; }
+.brand { display: flex; align-items: center; gap: 12px; padding: 5px 10px 36px; color: inherit; text-decoration: none; animation: sidebar-item-enter 480ms cubic-bezier(.2,.75,.25,1) both; }
+.brand-mark { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 10px; color: #132421; background: #c6e266; }
+.brand strong, .brand small, .sidebar-footer strong, .sidebar-footer small { display: block; }
+.brand strong { font-size: 12px; letter-spacing: 1.2px; }
+.brand small { margin-top: 3px; color: #b1c1bc; font-size: 12px; }
+.nav-caption { display: block; padding: 0 12px 10px; color: #829994; font-size: 10px; font-weight: 700; letter-spacing: 1.3px; animation: sidebar-item-enter 460ms 70ms cubic-bezier(.2,.75,.25,1) both; }
+nav { display: grid; gap: 5px; }
+nav a { position: relative; justify-content: flex-start; height: 44px; color: #bdcbc7; text-align: left; border-radius: 7px; transition: color 200ms ease, background-color 220ms ease, box-shadow 220ms ease; animation: sidebar-item-enter 460ms cubic-bezier(.2,.75,.25,1) both; }
+nav a:nth-child(1) { animation-delay: 120ms; }
+nav a:nth-child(2) { animation-delay: 170ms; }
+nav a:nth-child(3) { animation-delay: 220ms; }
+nav a:nth-child(4) { animation-delay: 270ms; }
+nav a mat-icon { margin-right: 10px; color: #91a8a1; transition: color 220ms ease, transform 220ms cubic-bezier(.2,.75,.25,1); }
+nav a:hover { color: #eef3dc; background: #203a34; }
+nav a.selected { color: #eef3dc; background: #29443e; box-shadow: inset 3px 0 #c6e266; }
+nav a.selected mat-icon { color: #c6e266; transform: translateX(2px); }
+nav a:focus-visible { outline: 2px solid #c6e266; outline-offset: 2px; }
+.sidebar-footer { position: absolute; right: 16px; bottom: 20px; left: 16px; display: flex; align-items: center; gap: 10px; padding: 15px 10px; border-top: 1px solid #36504a; animation: sidebar-item-enter 480ms 340ms cubic-bezier(.2,.75,.25,1) both; }
+.credit-copy strong, .credit-copy small { display: block; }
+.credit-copy strong { font-size: 11px; font-weight: 600; }
+.credit-copy small { margin-bottom: 4px; color: #98aaa4; font-size: 9px; text-transform: uppercase; }
+.credit-initials { display: none; }
+.topbar { display: flex; height: 66px; align-items: center; justify-content: space-between; padding: 0 36px; border-bottom: 1px solid #e1e6e2; background: #fff; }
+.breadcrumb { color: #687671; font-size: 10px; font-weight: 700; letter-spacing: 1.15px; }
+.breadcrumb span { padding: 0 8px; color: #afbab5; }
+.topbar a { border-color: #d9e1dc; color: #263b35; font-size: 12px; }
+.topbar a mat-icon { margin-right: 5px; font-size: 18px; }
+.content { width: 100%; min-width: 0; max-width: 1480px; margin: 0 auto; padding: 34px 38px 56px; overflow-x: hidden; }
+@keyframes sidebar-item-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 760px) {
+	.sidebar { width: 68px; flex-basis: 68px; padding: 18px 7px; }
+	.brand { justify-content: center; padding: 4px 0 30px; }
+	.brand > span:last-child, .nav-caption, nav a span, .credit-copy { display: none; }
+	nav a { justify-content: center; min-width: 0; padding: 0; }
+	nav a mat-icon { margin: 0; }
+	.sidebar-footer { display: none; }
+	.topbar { height: 58px; padding: 0 16px; }
+	.breadcrumb { font-size: 9px; }
+	.topbar a { min-width: 0; padding: 0 8px; }
+	.content { padding: 24px 16px 40px; }
+}
+@media (max-width: 400px) {
+	.topbar { gap: 8px; padding-inline: 8px; }
+	.breadcrumb { font-size: 8px; letter-spacing: .5px; white-space: nowrap; }
+	.breadcrumb span { padding-inline: 3px; }
+	.topbar a { width: 36px; min-width: 36px; justify-content: center; padding: 0; }
+	.topbar a mat-icon { margin: 0; }
+	.topbar-action-label { display: none; }
+	.content { padding-inline: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

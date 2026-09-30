@@ -1,0 +1,28 @@
+.back { margin: -8px 0 16px -9px; color: #62736b; font-size: 12px; }
+.back mat-icon { margin-right: 5px; font-size: 18px; }
+.eyebrow { color: #73817c; font-family: "Space Mono", monospace; font-size: 10px; letter-spacing: 1px; }
+.page-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 25px; }
+h1, h2, p { margin: 0; }
+h1 { margin-top: 6px; color: #1e342e; font-family: "Space Mono", monospace; font-size: 29px; }
+.page-heading p { margin-top: 5px; color: #718079; font-size: 12px; }
+.detail-actions { display: flex; align-items: center; gap: 16px; }
+.detail-actions button mat-icon { margin-right: 5px; }
+.status { display: inline-flex; align-items: center; gap: 7px; color: #77847e; font-size: 12px; }
+.status i { width: 7px; height: 7px; border-radius: 50%; background: #bdc6c1; }
+.status.inside { color: #58742e; }
+.status.inside i { background: #91b442; }
+.summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.summary article { display: grid; min-height: 105px; align-content: center; gap: 10px; padding: 18px; border: 1px solid #e1e7e3; border-radius: 7px; background: white; }
+.summary article span { color: #7a8781; font-size: 9px; font-weight: 700; letter-spacing: .7px; }
+.summary strong { color: #2b4039; font-size: 14px; font-weight: 600; }
+.history { margin-top: 24px; overflow: hidden; border: 1px solid #e1e7e3; border-radius: 7px; background: white; }
+.section-heading { padding: 18px 21px; border-bottom: 1px solid #e7ebe8; }
+h2 { margin-top: 4px; color: #263c35; font-size: 17px; }
+.table-scroll { min-width: 0; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; text-align: left; }
+@media (max-width: 620px) { .table-scroll table { min-width: 560px; } }
+th { height: 43px; padding: 0 17px; color: #839089; font-size: 9px; letter-spacing: .7px; white-space: nowrap; }
+td { height: 55px; padding: 0 17px; border-top: 1px solid #edf0ee; color: #53635c; font-size: 11px; white-space: nowrap; }
+.state { display: flex; min-height: 190px; align-items: center; justify-content: center; gap: 10px; color: #78857f; font-size: 13px; }
+.error mat-icon { color: #b17a35; }
+@media (max-width: 620px) { .page-heading { align-items: flex-start; flex-direction: column; } .detail-actions { align-items: flex-start; flex-direction: column; gap: 10px; } .summary { grid-template-columns: 1fr; gap: 8px; } .summary article { min-height: 83px; } }

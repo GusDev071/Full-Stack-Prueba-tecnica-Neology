@@ -1,0 +1,14 @@
+<section class="page-heading"><div><span class="eyebrow">CIERRE MENSUAL</span><h1>Pagos de residentes</h1><p>Importes calculados con base en el tiempo acumulado de estancia.</p></div><div class="page-actions"><button mat-stroked-button type="button" (click)="downloadPdf()" [disabled]="loading() || !report()"><mat-icon>picture_as_pdf</mat-icon> Descargar PDF</button><button mat-stroked-button type="button" (click)="loadReport()" [disabled]="loading()"><mat-icon>refresh</mat-icon> Actualizar</button></div></section>
+
+@if (loading()) { <div class="state"><mat-spinner diameter="30" aria-label="Generando informe"></mat-spinner></div> }
+@else if (error()) { <div class="state error"><mat-icon>cloud_off</mat-icon><p>{{ error() }}</p><button mat-button (click)="loadReport()">Intentar de nuevo</button></div> }
+@else if (report(); as data) {
+  <div class="report-meta"><span>GENERADO {{ data.fechaGeneracion | date:'d MMM y, HH:mm' }}</span><span>Tarifa residente <strong>$0.05 / minuto</strong></span></div>
+  <section class="totals"><article><span>RESIDENTES</span><strong>{{ data.totalResidentes }}</strong></article><article><span>MINUTOS ACUMULADOS</span><strong>{{ data.totalMinutosAcumulados | number:'1.0-0':'es-MX' }} <small>min</small></strong></article><article class="total-due"><span>TOTAL DEL CORTE</span><strong>{{ data.totalCobro | currency:'MXN':'symbol-narrow':'1.2-2':'es-MX' }}</strong></article></section>
+  <section class="report-table"><div class="table-heading"><div><span class="eyebrow">DETALLE</span><h2>Desglose por residente</h2></div><span>{{ data.residentes.length }} registros</span></div>
+    @if (data.residentes.length === 0) { <div class="state">No hay pagos de residentes para este periodo.</div> }
+    @else { <div class="table-scroll"><table><thead><tr><th>PLACA</th><th>TIEMPO ACUMULADO</th><th>TARIFA</th><th class="amount">TOTAL A PAGAR</th></tr></thead><tbody>
+      @for (resident of data.residentes; track resident.placa) { <tr><td class="plate">{{ resident.placa }}</td><td>{{ resident.tiempoAcumuladoMinutos | number:'1.0-0':'es-MX' }} min</td><td>{{ resident.tarifaPorMinuto | currency:'MXN':'symbol-narrow':'1.2-2':'es-MX' }} / min</td><td class="amount due">{{ resident.totalPagar | currency:'MXN':'symbol-narrow':'1.2-2':'es-MX' }}</td></tr> }
+    </tbody></table></div> }
+  </section>
+}

@@ -1,0 +1,33 @@
+<header class="ticket-dialog-heading">
+  <div><span class="eyebrow">COMPROBANTE DE SALIDA</span><h2 mat-dialog-title>Ticket de estacionamiento</h2></div>
+  <button mat-icon-button type="button" aria-label="Cerrar ticket" (click)="close()"><mat-icon>close</mat-icon></button>
+</header>
+
+<mat-dialog-content>
+  <article class="ticket-paper">
+    <header class="ticket-brand">
+      <span class="brand-mark"><mat-icon>local_parking</mat-icon></span>
+      <div><strong>NEOLOGY</strong><span>PARKING ACCESS</span></div>
+    </header>
+    <div class="ticket-title"><span>TICKET DE SALIDA</span><strong>COMPROBANTE DE PAGO</strong></div>
+    <div class="ticket-plate">{{ data.placa }}</div>
+    <div class="ticket-type">VEHÍCULO NO RESIDENTE</div>
+    <div class="ticket-divider"></div>
+    <dl class="ticket-details">
+      <div><dt>Folio</dt><dd>#{{ data.idEstancia }}</dd></div>
+      <div><dt>Entrada</dt><dd>{{ data.fechaHoraEntrada | date:'dd/MM/yyyy HH:mm':'':'es-MX' }}</dd></div>
+      <div><dt>Salida</dt><dd>{{ data.fechaHoraSalida | date:'dd/MM/yyyy HH:mm':'':'es-MX' }}</dd></div>
+      <div><dt>Tiempo estacionado</dt><dd>{{ durationLabel() }} ({{ data.minutos | number:'1.0-0':'es-MX' }} min)</dd></div>
+      <div><dt>Tarifa</dt><dd>{{ data.tarifaPorMinuto | currency:'MXN':'symbol-narrow':'1.2-2':'es-MX' }} por minuto</dd></div>
+    </dl>
+    <div class="ticket-divider"></div>
+    <div class="ticket-total"><span>TOTAL PAGADO</span><strong>{{ data.importeCobrado | currency:'MXN':'symbol-narrow':'1.2-2':'es-MX' }}</strong></div>
+    <p class="ticket-message">{{ data.mensaje }}</p>
+    <footer class="ticket-footer"><span>Gracias por su visita</span><small>Impreso {{ printedAt | date:'dd/MM/yyyy HH:mm':'':'es-MX' }}</small></footer>
+  </article>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="ticket-actions">
+  <button mat-button type="button" (click)="close()">Cerrar</button>
+  <button mat-flat-button color="primary" type="button" (click)="printTicket()"><mat-icon>print</mat-icon> Imprimir ticket</button>
+</mat-dialog-actions>

@@ -1,0 +1,35 @@
+* { box-sizing: border-box; }
+html, body { width: 100%; min-height: 100%; margin: 0; overflow-x: hidden; }
+body { background: #f4f6f5; color: #1f302b; font-family: "DM Sans", "Segoe UI", sans-serif; }
+app-root { display: block; width: 100%; min-width: 0; height: 100vh; height: 100dvh; }
+button, input { font: inherit; }
+a { color: inherit; }
+.mat-mdc-form-field { width: 100%; }
+.mat-mdc-raised-button.mat-primary { --mdc-protected-button-container-color: #193a33; --mdc-protected-button-label-text-color: #fff; }
+.mat-mdc-snack-bar-container { --mdc-snackbar-container-color: #193a33; --mdc-snackbar-supporting-text-color: #fff; }
+.mat-mdc-snack-bar-container.parking-toast-success { --mdc-snackbar-container-color: #193a33; --mdc-snackbar-supporting-text-color: #fff; --mat-snack-bar-button-color: #d4e6a0; }
+.mat-mdc-snack-bar-container.parking-toast-error { --mdc-snackbar-container-color: #873f35; --mdc-snackbar-supporting-text-color: #fff; --mat-snack-bar-button-color: #ffe0d8; }
+@keyframes route-view-enter { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+app-root .content > app-dashboard,
+app-root .content > app-vehicles,
+app-root .content > app-vehicle-detail,
+app-root .content > app-operations,
+app-root .content > app-reports { display: block; animation: route-view-enter 360ms cubic-bezier(.2,.75,.25,1) both; }
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+@media print {
+	@page { size: 80mm auto; margin: 5mm; }
+	html, body { width: 80mm !important; height: auto !important; min-height: 0 !important; margin: 0 !important; overflow: visible !important; background: #fff !important; }
+	body * { visibility: hidden !important; }
+	.cdk-overlay-container { position: static !important; width: 80mm !important; height: auto !important; overflow: visible !important; }
+	.cdk-overlay-backdrop { display: none !important; }
+	.cdk-global-overlay-wrapper { position: static !important; display: block !important; width: 80mm !important; height: auto !important; }
+	.cdk-overlay-pane:not(.parking-ticket-dialog) { display: none !important; }
+	.cdk-overlay-pane.parking-ticket-dialog { position: static !important; display: block !important; width: 80mm !important; max-width: 80mm !important; height: auto !important; margin: 0 !important; transform: none !important; }
+	.parking-ticket-dialog, .parking-ticket-dialog * { visibility: visible !important; }
+	.parking-ticket-dialog .mat-mdc-dialog-container, .parking-ticket-dialog .mat-mdc-dialog-surface { width: 80mm !important; max-width: 80mm !important; height: auto !important; max-height: none !important; overflow: visible !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: #fff !important; }
+	.parking-ticket-dialog .ticket-dialog-heading, .parking-ticket-dialog .ticket-actions { display: none !important; }
+	.parking-ticket-dialog .mat-mdc-dialog-content { max-height: none !important; overflow: visible !important; padding: 0 !important; }
+	.parking-ticket-dialog .ticket-paper { width: 70mm !important; max-width: 70mm !important; margin: 0 auto !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+}

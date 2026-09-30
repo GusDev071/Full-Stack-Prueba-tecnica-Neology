@@ -1,0 +1,27 @@
+:host { display: block; width: min(100%, 560px); }
+.dialog-heading { display: flex; align-items: center; gap: 13px; padding: 24px 24px 15px; }
+.success-mark { display: grid; width: 40px; height: 40px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #e7f0d8; color: #537331; }
+.heading-copy { min-width: 0; flex: 1; }
+.eyebrow { color: #75837b; font-family: "Space Mono", monospace; font-size: 9px; letter-spacing: .8px; }
+h2 { margin: 4px 0 0; padding: 0; color: #1e342e; font-size: 20px; font-weight: 600; }
+.dialog-heading button { color: #75817b; }
+mat-dialog-content { padding: 0 24px 8px; }
+.backend-message { margin: 0 0 18px; color: #68766f; font-size: 12px; line-height: 1.55; }
+.vehicle-line { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
+.plate { color: #1e342e; font-family: "Space Mono", monospace; font-size: 20px; font-weight: 700; }
+.vehicle-type { padding: 6px 9px; border-radius: 4px; background: #f0f3ec; color: #63735e; font-size: 10px; }
+.charge-summary { display: flex; min-height: 96px; align-items: center; justify-content: space-between; padding: 17px 20px; border: 1px solid #dfe8d2; border-radius: 7px; background: #f4f7ee; }
+.charge-summary span, .detail-item span, .receipt-reference span { display: block; color: #78857e; font-size: 9px; font-weight: 700; letter-spacing: .7px; }
+.charge-summary strong { display: block; margin-top: 6px; color: #304c38; font-family: "Space Mono", monospace; font-size: 28px; }
+.charge-summary mat-icon { color: #688543; font-size: 25px; }
+.charge-summary.no-charge { border-color: #e4e9e4; background: #f6f8f6; }
+.charge-summary.no-charge strong, .charge-summary.no-charge mat-icon { color: #536a5d; }
+.details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; margin-top: 13px; }
+.detail-item { min-height: 62px; display: flex; flex-direction: column; justify-content: center; gap: 6px; border-bottom: 1px solid #edf0ed; }
+.detail-item strong { color: #33483e; font-size: 12px; font-weight: 600; }
+.detail-item.accumulated { grid-column: 1 / -1; }
+.receipt-reference { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; }
+.receipt-reference strong { color: #66766e; font-family: "Space Mono", monospace; font-size: 12px; }
+mat-dialog-actions { padding: 8px 24px 20px; }
+@media (max-width: 520px) { .dialog-heading { padding: 20px 18px 12px; } mat-dialog-content { padding: 0 18px 8px; } .charge-summary { min-height: 82px; padding: 13px 15px; } .charge-summary strong { font-size: 24px; } .details { gap: 0 12px; } .detail-item strong { font-size: 11px; } mat-dialog-actions { padding: 8px 18px 18px; } }
+@media (max-width: 380px) { .details { grid-template-columns: minmax(0, 1fr); } .detail-item.accumulated { grid-column: auto; } .vehicle-line { align-items: flex-start; flex-direction: column; gap: 6px; } .backend-message { overflow-wrap: anywhere; } .charge-summary strong { font-size: 21px; } }

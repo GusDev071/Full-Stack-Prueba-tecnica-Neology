@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>{{ label }}</h2>
+<mat-dialog-content>
+  <p class="prompt">Selecciona una hora y sus minutos.</p>
+  <div class="time-fields">
+    <mat-form-field appearance="outline">
+      <mat-label>Hora</mat-label>
+      <mat-select [value]="hour()" (selectionChange)="hour.set($event.value)">
+        @for (item of hours; track item) { <mat-option [value]="item">{{ item }}</mat-option> }
+      </mat-select>
+    </mat-form-field>
+    <span class="separator">:</span>
+    <mat-form-field appearance="outline">
+      <mat-label>Minuto</mat-label>
+      <mat-select [value]="minute()" (selectionChange)="minute.set($event.value)">
+        @for (item of minutes; track item) { <mat-option [value]="item">{{ item }}</mat-option> }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="time-preview" aria-live="polite">{{ hour() }}:{{ minute() }}</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close type="button">Cancelar</button>
+  <button mat-flat-button color="primary" type="button" (click)="confirm()">Usar esta hora</button>
+</mat-dialog-actions>

@@ -1,0 +1,55 @@
+<section class="page-heading"><div><span class="eyebrow">MOVIMIENTOS Y CATÁLOGO</span><h1>Operaciones</h1><p>Registra accesos, administra vehículos y prepara el siguiente corte.</p></div></section>
+
+<mat-tab-group class="operation-tabs" animationDuration="150ms" [selectedIndex]="selectedTab()" (selectedIndexChange)="selectedTab.set($event)">
+  <mat-tab label="Entrada">
+    <section class="form-panel"><div class="panel-intro"><span class="icon-box"><mat-icon>login</mat-icon></span><div><h2>Registrar entrada</h2><p>Si la placa no existe, se registrará como no residente.</p></div></div>
+      <div class="operation-layout">
+        <form [formGroup]="entryForm" #entryFormDirective="ngForm" (ngSubmit)="registerEntry(entryFormDirective)">
+          <mat-form-field appearance="outline"><mat-label>Placa</mat-label><input matInput formControlName="placa" placeholder="ABC-123" maxlength="12" autocapitalize="characters"/><mat-error>Escribe una placa válida (3 a 12 caracteres).</mat-error></mat-form-field>
+          <mat-form-field appearance="outline"><mat-label>Fecha de entrada</mat-label><input matInput [matDatepicker]="entryDatePicker" formControlName="fecha" placeholder="Selecciona una fecha"/><mat-datepicker-toggle matIconSuffix [for]="entryDatePicker" aria-label="Abrir calendario de entrada"/><mat-datepicker #entryDatePicker/><mat-error>Selecciona la fecha de entrada.</mat-error></mat-form-field>
+          <mat-form-field appearance="outline"><mat-label>Hora de entrada</mat-label><input matInput type="time" formControlName="hora"/><button mat-icon-button matSuffix type="button" aria-label="Elegir hora de entrada" (click)="openTimePicker('entry')"><mat-icon>schedule</mat-icon></button><mat-error>Indica la hora de entrada.</mat-error></mat-form-field>
+          <button mat-flat-button color="primary" type="submit" [disabled]="busy()"><mat-icon>login</mat-icon> Registrar entrada</button>
+        </form>
+        <aside class="rate-card" aria-label="Referencia de tarifas">
+          <div class="rate-card-heading"><span class="rate-mark"><mat-icon>payments</mat-icon></span><div><span class="eyebrow">REFERENCIA</span><h3>Tarifas por vehículo</h3></div></div>
+          <dl class="rate-list"><div><dt>Oficial</dt><dd>Sin cobro</dd></div><div><dt>Residente</dt><dd>$0.05 <small>/ min</small></dd></div><div><dt>No residente</dt><dd>$0.50 <small>/ min</small></dd></div></dl>
+          <p class="rate-note"><mat-icon>info</mat-icon><span>El tiempo de residentes se acumula para el cierre mensual.</span></p>
+        </aside>
+      </div>
+    </section>
+  </mat-tab>
+  <mat-tab label="Salida">
+    <section class="form-panel"><div class="panel-intro"><span class="icon-box exit"><mat-icon>logout</mat-icon></span><div><h2>Registrar salida</h2><p>El sistema calcula duración y cobro según el tipo de vehículo.</p></div></div>
+      <div class="operation-layout">
+        <form [formGroup]="exitForm" #exitFormDirective="ngForm" (ngSubmit)="registerExit(exitFormDirective)">
+          <mat-form-field appearance="outline"><mat-label>Placa</mat-label><input matInput formControlName="placa" placeholder="ABC-123" maxlength="12" autocapitalize="characters"/><mat-error>Escribe una placa válida (3 a 12 caracteres).</mat-error></mat-form-field>
+          <mat-form-field appearance="outline"><mat-label>Fecha de salida</mat-label><input matInput [matDatepicker]="exitDatePicker" formControlName="fecha" placeholder="Selecciona una fecha"/><mat-datepicker-toggle matIconSuffix [for]="exitDatePicker" aria-label="Abrir calendario de salida"/><mat-datepicker #exitDatePicker/><mat-error>Selecciona la fecha de salida.</mat-error></mat-form-field>
+          <mat-form-field appearance="outline"><mat-label>Hora de salida</mat-label><input matInput type="time" formControlName="hora"/><button mat-icon-button matSuffix type="button" aria-label="Elegir hora de salida" (click)="openTimePicker('exit')"><mat-icon>schedule</mat-icon></button><mat-error>Indica la hora de salida.</mat-error></mat-form-field>
+          <button mat-flat-button color="primary" type="submit" [disabled]="busy()"><mat-icon>logout</mat-icon> Registrar salida</button>
+        </form>
+        <aside class="rate-card" aria-label="Referencia de tarifas">
+          <div class="rate-card-heading"><span class="rate-mark exit"><mat-icon>receipt_long</mat-icon></span><div><span class="eyebrow">REFERENCIA</span><h3>Tarifas por vehículo</h3></div></div>
+          <dl class="rate-list"><div><dt>Oficial</dt><dd>Sin cobro</dd></div><div><dt>Residente</dt><dd>$0.05 <small>/ min</small></dd></div><div><dt>No residente</dt><dd>$0.50 <small>/ min</small></dd></div></dl>
+          <p class="rate-note"><mat-icon>info</mat-icon><span>La estancia se cierra al confirmar la salida.</span></p>
+        </aside>
+      </div>
+    </section>
+  </mat-tab>
+  <mat-tab label="Alta de vehículo">
+    <section class="form-panel"><div class="panel-intro"><span class="icon-box"><mat-icon>add_circle_outline</mat-icon></span><div><h2>Alta de vehículo</h2><p>Elige el tipo de tarifa que aplicará a esta placa.</p></div></div>
+      <form [formGroup]="vehicleForm" #vehicleFormDirective="ngForm" (ngSubmit)="createVehicle(vehicleFormDirective)">
+        <mat-form-field appearance="outline"><mat-label>Placa</mat-label><input matInput formControlName="placa" placeholder="ABC-123" maxlength="12" autocapitalize="characters"/><mat-error>Escribe una placa válida (3 a 12 caracteres).</mat-error></mat-form-field>
+        <mat-form-field appearance="outline"><mat-label>Tipo de vehículo</mat-label><mat-select formControlName="tipo"><mat-option value="OFICIAL">Oficial · Sin cobro</mat-option><mat-option value="RESIDENTE">Residente · $0.05 por minuto</mat-option><mat-option value="NO_RESIDENTE">No residente · $0.50 por minuto</mat-option></mat-select></mat-form-field>
+        <button mat-flat-button color="primary" type="submit" [disabled]="busy()"><mat-icon>save</mat-icon> Guardar vehículo</button>
+      </form>
+    </section>
+  </mat-tab>
+  <mat-tab label="Nuevo mes">
+    <section class="form-panel month-panel"><div class="panel-intro"><span class="icon-box warning"><mat-icon>calendar_month</mat-icon></span><div><h2>Iniciar nuevo mes</h2><p>Reinicia los acumulados de residentes y elimina estancias finalizadas.</p></div></div>
+      <div class="warning-box"><mat-icon>warning_amber</mat-icon><p>Esta acción no se puede deshacer. Las estancias activas se conservan.</p></div>
+      <mat-checkbox [checked]="confirmedMonth()" (change)="confirmedMonth.set($event.checked)">Confirmo el reinicio de los acumulados y el historial cerrado.</mat-checkbox>
+      <button mat-flat-button color="primary" class="reset-button" (click)="startMonth()" [disabled]="busy() || !confirmedMonth()"><mat-icon>restart_alt</mat-icon> Iniciar nuevo mes</button>
+    </section>
+  </mat-tab>
+</mat-tab-group>
+@if (busy()) { <div class="busy"><mat-spinner diameter="24" aria-label="Procesando operación"></mat-spinner> Procesando…</div> }

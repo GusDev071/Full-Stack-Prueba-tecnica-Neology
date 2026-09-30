@@ -1,0 +1,41 @@
+<header class="dialog-heading">
+  <span class="success-mark"><mat-icon>check</mat-icon></span>
+  <div class="heading-copy">
+    <span class="eyebrow">OPERACIÓN COMPLETADA</span>
+    <h2 mat-dialog-title>Salida registrada</h2>
+  </div>
+  <button mat-icon-button type="button" aria-label="Cerrar detalle de salida" (click)="close()"><mat-icon>close</mat-icon></button>
+</header>
+
+<mat-dialog-content>
+  <p class="backend-message">{{ data.mensaje }}</p>
+
+  <div class="vehicle-line">
+    <span class="plate">{{ data.placa }}</span>
+    <span class="vehicle-type">{{ vehicleTypeLabels[data.tipoVehiculo] }}</span>
+  </div>
+
+  <section class="charge-summary" [class.no-charge]="data.importeCobrado === 0" aria-label="Importe cobrado">
+    <div><span>IMPORTE COBRADO</span><strong>{{ data.importeCobrado | currency:'MXN':'symbol-narrow':'1.2-2':'es-MX' }}</strong></div>
+    <mat-icon>{{ data.importeCobrado === 0 ? 'verified' : 'payments' }}</mat-icon>
+  </section>
+
+  <section class="details" aria-label="Detalle de la estancia">
+    <div class="detail-item"><span>ENTRADA</span><strong>{{ data.fechaHoraEntrada | date:'d MMM y, HH:mm':'':'es-MX' }}</strong></div>
+    <div class="detail-item"><span>SALIDA</span><strong>{{ data.fechaHoraSalida | date:'d MMM y, HH:mm':'':'es-MX' }}</strong></div>
+    <div class="detail-item"><span>DURACIÓN</span><strong>{{ data.minutos | number:'1.0-0':'es-MX' }} min</strong></div>
+    <div class="detail-item"><span>TARIFA</span><strong>{{ data.tarifaPorMinuto | currency:'MXN':'symbol-narrow':'1.2-2':'es-MX' }} / min</strong></div>
+    @if (data.tiempoAcumuladoTotal !== null) {
+      <div class="detail-item accumulated"><span>ACUMULADO DEL MES</span><strong>{{ data.tiempoAcumuladoTotal | number:'1.0-0':'es-MX' }} min</strong></div>
+    }
+  </section>
+
+  <footer class="receipt-reference"><span>FOLIO DE ESTANCIA</span><strong>#{{ data.idEstancia }}</strong></footer>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  @if (data.tipoVehiculo === 'NO_RESIDENTE') {
+    <button mat-stroked-button type="button" (click)="generateTicket()"><mat-icon>receipt_long</mat-icon> Generar ticket</button>
+  }
+  <button mat-flat-button color="primary" type="button" (click)="close()">Listo</button>
+</mat-dialog-actions>

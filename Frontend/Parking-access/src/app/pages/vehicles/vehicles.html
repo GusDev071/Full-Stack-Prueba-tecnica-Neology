@@ -1,0 +1,35 @@
+<section class="page-heading">
+  <div><span class="eyebrow">CATÁLOGO</span><h1>Vehículos</h1><p>Consulta placas registradas y su estado en el estacionamiento.</p></div>
+  <div class="heading-actions">
+    <button mat-stroked-button type="button" (click)="downloadPdf()" [disabled]="loading() || filteredVehicles().length === 0"><mat-icon>picture_as_pdf</mat-icon> Descargar PDF</button>
+    <a mat-flat-button color="primary" routerLink="/operaciones" [queryParams]="{ tab: 'alta' }"><mat-icon>add</mat-icon> Dar de alta</a>
+  </div>
+</section>
+
+<section class="catalog">
+  <div class="toolbar">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Buscar por placa</mat-label><mat-icon matPrefix>search</mat-icon>
+      <input matInput #filterBox (input)="updateQuery(filterBox.value)" placeholder="Ej. RES-101" />
+    </mat-form-field>
+    <span class="count">{{ filteredVehicles().length }} {{ filteredVehicles().length === 1 ? 'vehículo' : 'vehículos' }}</span>
+  </div>
+
+  @if (loading()) { <div class="load-state"><mat-spinner diameter="30" aria-label="Cargando vehículos"></mat-spinner></div> }
+  @else if (error()) { <div class="empty-state"><mat-icon>cloud_off</mat-icon><p>{{ error() }}</p><button mat-button (click)="loadVehicles()">Intentar de nuevo</button></div> }
+  @else if (filteredVehicles().length === 0) { <div class="empty-state"><mat-icon>search_off</mat-icon><p>{{ query() ? 'No hay coincidencias para esa placa.' : 'Aún no hay vehículos registrados.' }}</p></div> }
+  @else {
+    <div class="table-scroll"><table><thead><tr><th>PLACA</th><th>TIPO</th><th>FECHA DE ALTA</th><th>TIEMPO ACUMULADO</th><th>ESTADO</th><th></th></tr></thead><tbody>
+      @for (vehicle of filteredVehicles(); track vehicle.placa) {
+        <tr>
+          <td class="plate">{{ vehicle.placa }}</td>
+          <td><span class="type" [class.resident]="vehicle.tipo === 'RESIDENTE'" [class.official]="vehicle.tipo === 'OFICIAL'">{{ typeLabels[vehicle.tipo] }}</span></td>
+          <td>{{ vehicle.fechaAlta | date:'d MMM y' }}</td>
+          <td>{{ vehicle.tiempoAcumulado == null ? '—' : vehicle.tiempoAcumulado + ' min' }}</td>
+          <td><span class="status" [class.inside]="vehicle.estanciaActiva"><i></i>{{ vehicle.estanciaActiva ? 'Dentro' : 'Fuera' }}</span></td>
+          <td><a mat-icon-button [routerLink]="['/vehiculos', vehicle.placa]" [attr.aria-label]="'Ver detalle de ' + vehicle.placa"><mat-icon>arrow_forward</mat-icon></a></td>
+        </tr>
+      }
+    </tbody></table></div>
+  }
+</section>
