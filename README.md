@@ -1,122 +1,300 @@
-# Full-Stack-Prueba-tecnica-Neology
+# 🚗 Sistema de Control y Gestión de Estacionamiento - Neology
 
-Instrucciones de la prueba tecnica 
+> **Prueba Técnica Full Stack Developer**  
+> Solución completa desarrollada con **Spring Boot 3** en el Backend y **Angular** con **Angular Material** en el Frontend.
 
-La siguiente es una prueba para evaluar a los postulantes para un perfil de Full Stack.
+---
 
-## INTRODUCCIÓN
-Este repositorio contiene una serie de requerimientos de un Caso Práctico, que busca evaluar las capacidades técnicas del candidato con respecto a las principales funciones y responsabilidades que se requieren dentro del área de Desarrollo de software de Neology.
+## 📋 Tabla de Contenidos
+1. [Descripción General](#-descripción-general)
+2. [Arquitectura y Tecnologías](#-arquitectura-y-tecnologías)
+3. [Nota sobre el Uso de IA en el Frontend](#-nota-sobre-el-uso-de-ia-en-el-frontend)
+4. [Reglas de Negocio Implementadas](#-reglas-de-negocio-implementadas)
+5. [Estructura del Proyecto](#-estructura-del-proyecto)
+6. [Instrucciones para Levantar el Backend (Spring Boot)](#-instrucciones-para-levantar-el-backend-spring-boot)
+7. [Instrucciones para Levantar el Frontend (Angular)](#-instrucciones-para-levantar-el-frontend-angular)
+8. [Base de Datos Precargada](#-base-de-datos-precargada)
+9. [Catálogo de Endpoints de la API](#-catálogo-de-endpoints-de-la-api)
+10. [Ejecución de Pruebas Unitarias](#-ejecución-de-pruebas-unitarias)
+11. [Características Adicionales y UX](#-características-adicionales-y-ux)
+12. [📸 Galería de Imágenes](#-galería-de-imágenes)
 
-## ¿Qué se busca evaluar?
-Principalmente los siguientes aspectos:
+---
 
-* Creatividad para resolver los requerimientos.
-* Uso de experiencia y conocimiento en base a buenas praticas.
-* Eficiencia de los algoritmos entregados.
-* Mostrar la experencía y la manera de poder salir de la caja para romper o identificar cualquier falla o mejora.
-* Familiaridad con Frameworks y plataformas.
+## 🎯 Descripción General
 
+El sistema permite gestionar de manera integral el acceso de vehículos a un estacionamiento corporativo/urbano, controlando:
+- **Altas y catálogo de vehículos** clasificados por tipo (Oficial, Residente y No Residente/Visitante).
+- **Control de estancias en tiempo real**: Registro de entradas, salidas y estancias activas.
+- **Cálculo y cobro de tarifas automatizado** según la categoría del vehículo.
+- **Cierre y reinicio de ciclo mensual** con reseteo de minutos y estancias finalizadas.
+- **Informe de pagos de residentes** con cálculo de importes acumulados y exportación a PDF.
 
-## Consideraciones al finalizar la prueba:
-Enviar la prueba tecnica hacía el correo de la consultora y copiando la prueba al correo vmiranda@neology.mx y lluna@neopartners.mx.
-Cumplir con los puntos que solicitan, hacer enfasis en el detalle de las interfaces.<br>
-Clonar el proyecto y subirlo como una rama adicional.
+---
 
+## 🛠️ Arquitectura y Tecnologías
 
+### Backend (Spring Boot)
+- **Lenguaje:** Java 17+
+- **Framework:** Spring Boot 3.2.5
+- **Persistencia:** Spring Data JPA + Hibernate
+- **Base de Datos:** H2 Database (In-Memory)
+- **Documentación API:** SpringDoc OpenAPI 2.5.0 (Swagger UI)
+- **Validaciones:** Hibernate Validator / Jakarta Validation
+- **Utilidades:** Lombok
+- **Patrones de Diseño:**
+  - **Strategy Pattern:** Implementado en `TarifaStrategy`, `TarifaContext`, `TarifaOficialStrategy`, `TarifaResidenteStrategy`, `TarifaNoResidenteStrategy` para permitir la incorporación limpia y desacoplada de nuevos tipos de vehículos.
+  - **DTO Pattern:** Desacoplamiento entre entidades de persistencia y contratos de API.
+  - **Global Exception Handler:** Control unificado de respuestas de error RFC 7807 (`@ControllerAdvice`).
 
-## Instrucciones:
-* Tiempo estimado: 5 horas
-* Se espera que completes las tareas especificadas a continuación utilizando Angular & Spring Boot.
-* La prueba se evaluará en función de la calidad del código, la organización, la atención al detalle y la precisión en la implementación de los requisitos.
+### Frontend (Angular)
+- **Framework:** Angular 21
+- **Componentes UI:** Angular Material (@angular/material, @angular/cdk)
+- **Estilos:** CSS moderno con tokens de diseño y diseño adaptativo (Responsive)
+- **Reportes:** jsPDF + jsPDF-AutoTable para generación de reportes PDF
+- **Módulos / Vistas:**
+  - Dashboard de ocupación e indicadores clave
+  - Operaciones (Entrada, Salida con ticket/cobro, Alta de vehículos, Cierre de mes)
+  - Directorio de vehículos con búsqueda por placa, ordenamiento y paginación
+  - Vista de detalle individual con historial de estancias y pagos acumulados
+  - Reporte de residentes con desglose de montos y descarga en PDF
 
-## Objetivo General de la prueba Técnica:
+---
 
-Desarrollar un sistema web que permita gestionar el acceso de vehículos a un estacionamiento, con una interfaz frontend en Angular y una API backend en Spring Boot.<br>
-El sistema debe registrar entradas y salidas, calcular cobros y mostrar reportes.
+## 🤖 Nota sobre el Uso de IA en el Frontend
 
+> [!NOTE]
+> **Transparencia en el Desarrollo:**  
+> En la parte del **Frontend**, se utilizó **Inteligencia Artificial (IA)** como herramienta de soporte estético para:
+> - **Rellenar con diseño espacios en blanco** y enriquecer la composición visual de las interfaces para brindar un aspecto moderno y profesional.
+> - **Ajustar y afinar elementos responsivos** en pantallas de diversos tamaños (dispositivos móviles y tablets).
+>
+> Cabe destacar que el uso de IA se implementó **únicamente en la capa visual y de adaptabilidad responsiva del Frontend**. Toda la lógica de negocio, arquitectura por capas, patrones de diseño (Strategy), endpoints REST, persistencia y suite de pruebas unitarias del Backend fueron estructurados bajo rigurosas buenas prácticas de desarrollo de software.
 
-### Parte 1 – Backend (Spring Boot):
-## Tecnologías:
-* Java 17+
-* Spring Boot 3.x
-* Maven
-* Hibernate + JPA
-* Base de datos H2 (en memoria)
-* Lombok (opcional)
-* Swagger (opcional)
+---
 
+## ⚖️ Reglas de Negocio Implementadas
 
-### 1. Endpoints requeridos:
+| Tipo de Vehículo | Tarifa por Minuto | Momento de Pago | Comportamiento |
+| :--- | :--- | :--- | :--- |
+| **Oficial** | **$0.00** / min | Exento | Entra y sale sin costo. Guarda historial de estancias. |
+| **Residente** | **$0.05** / min | Fin de mes / acumulado | Al salir acumula los minutos de estancia en su cuenta. Paga en el corte mensual. |
+| **No Residente** | **$0.50** / min | Al salir (en ventanilla) | Al registrar la salida se calcula el importe exacto con base en los minutos transcurridos. |
 
-* POST neo/vehiculos/oficiales: Alta de vehículo oficial
-* POST neo/vehiculos/residentes: Alta de vehículo residente
-* POST neo/vehiculos/no-residentes: Alta de vehículo no residente (opcional)
-* POST neo/estancias/entrada: Registrar entrada de vehículo
-* POST neo/estancias/salida: Registrar salida de vehículo
-* GET neo/residentes/pagos: Generar informe de pagos
-* POST neo/mes/iniciar: Reiniciar mes (reseteo de tiempos y estancias)
+- **Cierre de Mes (`POST /neo/mes/iniciar`):**
+  - Resetea a 0 los minutos acumulados de todos los residentes.
+  - Elimina únicamente las estancias finalizadas (conservando las estancias actualmente activas en el estacionamiento).
+- **Diseño extensible:** Para agregar un nuevo tipo (ej. `MOTOCICLETA` o `PROVEEDOR`), basta con implementar la interfaz `TarifaStrategy` e inyectarla en el contexto.
 
-### 2. Modelos principales:
+---
 
-* Vehículo (placa, tipo)
-* Estancia (placa, fecha/hora entrada, fecha/hora salida)
-* Residente (placa, tiempo acumulado)
+## 📁 Estructura del Proyecto
 
-### 3. Reglas de negocio:
+```text
+Full-Stack-Prueba-tecnica-Neology/
+├── Backend/
+│   └── pruebatecnica/
+│       ├── pom.xml
+│       ├── mvnw / mvnw.cmd
+│       └── src/
+│           ├── main/java/.../
+│           │   ├── config/          # Swagger OpenAPI y CORS
+│           │   ├── controller/      # Endpoints REST (Vehiculos, Estancias, Residentes, Mes)
+│           │   ├── data/            # DataLoader para precarga de datos H2
+│           │   ├── dto/             # Objetos de transferencia de datos Request/Response
+│           │   ├── exception/       # Manejador global de excepciones
+│           │   ├── model/           # Entidades JPA (Vehiculo, Estancia, Residente, TipoVehiculo)
+│           │   ├── repository/      # Interfaces Spring Data JPA
+│           │   ├── service/         # Interfaces e implementaciones de lógica de negocio
+│           │   └── strategy/        # Patrón Strategy para cálculo de tarifas
+│           └── test/java/.../       # Tests unitarios y de integración (18 tests)
+│
+├── Frontend/
+│   └── Parking-access/
+│       ├── package.json
+│       ├── angular.json
+│       └── src/app/
+│           ├── components/          # Modales: Ticket de entrada, Resultado de salida, etc.
+│           ├── models/              # Modelos TypeScript
+│           ├── pages/
+│           │   ├── dashboard/       # Métricas de ocupación y accesos rápidos
+│           │   ├── operations/      # Registros de entrada, salida, alta y cierre de mes
+│           │   ├── vehicles/        # Listado con filtros, orden y paginación
+│           │   ├── vehicle-detail/  # Detalle de vehículo, historial y minutos
+│           │   └── reports/         # Informe mensual de pagos con exportación PDF
+│           └── services/            # Clientes HTTP (ParkingApiService) y PDF (ParkingPdfService)
+├── Screenshots/                     # Capturas de pantalla de la aplicación y flujos
+└── README.md
+```
 
-* Vehículos oficiales no pagan.
-* Residentes pagan $0.05/minuto (acumulado).
-* No residentes pagan $0.5/minuto al salir.
-* El sistema debe permitir agregar fácilmente nuevos tipos de vehículos.
+---
 
-### 4. Pruebas unitarias:
+## 🚀 Instrucciones para Levantar el Backend (Spring Boot)
 
-* Crear pruebas mínimas para los servicios más importantes (ej: cálculo de cobro, registro de estancias).
+### Requisitos Previos
+- **Java Development Kit (JDK):** Versión 17 o superior instalada y configurada en el `PATH`.
+- **Maven:** No es obligatorio tenerlo instalado globalmente ya que el repositorio incluye los wrappers `mvnw` y `mvnw.cmd`.
 
+### Pasos de Ejecución
 
-## Parte 2 – Frontend (Angular):
-### Tecnologías:
-* Angular 16+
-* Angular Material
-* SCSS o CSS
+1. Abrir una terminal y navegar a la carpeta del backend:
+   ```bash
+   cd Backend/pruebatecnica
+   ```
 
-### 1. Requerimientos funcionales:
+2. Ejecutar la aplicación con Maven Wrapper:
+   - **En Windows:**
+     ```powershell
+     .\mvnw.cmd spring-boot:run
+     ```
+   - **En Linux / macOS:**
+     ```bash
+     ./mvnw spring-boot:run
+     ```
 
-* Página de listado de vehículos (consumir desde el backend).<br> 
-Formulario para:
-* Registrar entrada
-* Registrar salida
-* Dar de alta vehículo oficial o residente
-* Iniciar nuevo mes
+3. El backend iniciará en el puerto **`8080`**.
 
-* Vista de detalle para cada vehículo (estancias, pagos acumulados si aplica).<br>
-* Página de reporte de residentes (visualización de informe).
+### Accesos Disponibles
+- **URL Base de la API:** `http://localhost:8080/neo`
+- **Documentación Swagger UI (OpenAPI):**  
+  👉 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+- **Consola de Base de Datos H2:**  
+  👉 [http://localhost:8080/h2-console](http://localhost:8080/h2-console)  
+  - **JDBC URL:** `jdbc:h2:mem:neology_db`
+  - **User Name:** `SA`
+  - **Password:** *(dejar vacío)*
 
-### 2. Extras recomendados:
+---
 
-* Filtro por placa en el listado.
-* Paginación y ordenamiento.
-* Validación de campos.
-* Prevenir XSS en campos de entrada.
-* Pruebas unitarias básicas con Jasmine + Karma.
-* Utiliza Angular Material para mejorar el diseño y la experiencia del usuario.
+## 💻 Instrucciones para Levantar el Frontend (Angular)
 
-## Entrega:
+### Requisitos Previos
+- **Node.js:** Versión 18.x, 20.x o superior.
+- **npm:** Administrador de paquetes incluido con Node.js.
 
-### Repositorio GitHub con:
-* Proyecto Angular (frontend/)
-* Proyecto Spring Boot (backend/)
+### Pasos de Ejecución
 
-### Instrucciones claras en el README para:
-* Levantar backend y frontend
-* Realizar pruebas
-* Base de datos precargada opcionalmente
-* Capturas de pantalla del frontend funcionando
-* Código bien organizado, modular, con buenas prácticas
+1. Abrir una terminal y navegar a la carpeta del frontend:
+   ```bash
+   cd Frontend/Parking-access
+   ```
 
+2. Instalar las dependencias del proyecto:
+   ```bash
+   npm install
+   ```
 
+3. Iniciar el servidor de desarrollo:
+   ```bash
+   npm start
+   # o bien: npx ng serve
+   ```
 
-Nota:
-No te preocupes si no puedes completar todos los requisitos en el tiempo asignado. Se valorará el progreso y la calidad del trabajo realizado.
+4. Abrir el navegador en:  
+   👉 [http://localhost:4200](http://localhost:4200)
 
+---
+
+## 🗄️ Base de Datos Precargada
+
+Al iniciar la aplicación, el componente [`DataLoader.java`](file:///c:/Users/flore/OneDrive/Documentos/Prueba%20tecnica/Full-Stack-Prueba-tecnica-Neology/Backend/pruebatecnica/src/main/java/com/gustavo/prueba/tecnica/neology/pruebatecnica/data/DataLoader.java) inicializa automáticamente en memoria registros para facilitar pruebas inmediatas:
+
+- **Vehículos Oficiales:**
+  - `OF-1001` (Vehículo Oficial Patrulla Norte)
+  - `OF-1002` (Vehículo Oficial Inspección)
+- **Vehículos Residentes:**
+  - `RES-2001` (Residente Juan Pérez - con minutos y estancias previas)
+  - `RES-2002` (Residente María González - con minutos acumulados)
+  - `RES-2003` (Residente Carlos Ruiz)
+- **Vehículos No Residentes / Visitantes:**
+  - `VIS-3001`, `VIS-3002`, `VIS-3003`
+- **Estancias Activas de Prueba:**
+  - `RES-2001` y `VIS-3001` con ingreso registrado para probar la salida inmediata.
+
+---
+
+## 📡 Catálogo de Endpoints de la API
+
+Todos los endpoints tienen como prefijo base `/neo`.
+
+### 1. Vehículos
+| Método | Endpoint | Descripción | Body (JSON) |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/neo/vehiculos/oficiales` | Alta de vehículo oficial | `{"placa": "OF-9999"}` |
+| `POST` | `/neo/vehiculos/residentes` | Alta de vehículo residente | `{"placa": "RES-8888"}` |
+| `POST` | `/neo/vehiculos/no-residentes` | Alta de vehículo no residente | `{"placa": "VIS-7777"}` |
+| `GET` | `/neo/vehiculos` | Listado general de vehículos | - |
+| `GET` | `/neo/vehiculos/{placa}` | Detalle de vehículo, historial y cobros | - |
+
+### 2. Estancias
+| Método | Endpoint | Descripción | Body (JSON) |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/neo/estancias/entrada` | Registrar entrada de vehículo | `{"placa": "RES-2001"}` |
+| `POST` | `/neo/estancias/salida` | Registrar salida y calcular cobro | `{"placa": "VIS-3001"}` |
+| `GET` | `/neo/estancias` | Historial completo de estancias | - |
+| `GET` | `/neo/estancias/activas` | Listado de estancias actualmente dentro | - |
+
+### 3. Residentes e Informes
+| Método | Endpoint | Descripción | Body (JSON) |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/neo/residentes/pagos` | Informe acumulado de pagos a cobrar | - |
+| `GET` | `/neo/residentes` | Lista de residentes y sus importes | - |
+
+### 4. Ciclo Mensual
+| Método | Endpoint | Descripción | Body (JSON) |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/neo/mes/iniciar` | Reinicio de mes (resetea minutos y borra estancias cerradas) | `{}` |
+
+---
+
+## 🧪 Ejecución de Pruebas Unitarias
+
+### Backend
+El backend cuenta con una batería completa de pruebas que validan los cálculos de tarifas por minuto, estancias de vehículos, validaciones de negocio e integración completa de endpoints:
+
+```bash
+cd Backend/pruebatecnica
+.\mvnw.cmd test       # En Windows
+# ./mvnw test         # En Linux / macOS
+```
+- **Resultado:** 18 pruebas ejecutadas satisfactoriamente (0 fallos, 0 errores).
+
+### Frontend
+Para compilar y verificar el bundle de producción de Angular:
+
+```bash
+cd Frontend/Parking-access
+npm run build
+```
+
+---
+
+## ✨ Características Adicionales y UX
+
+- **Angular Material:** Componentes estilizados como `MatToolbar`, `MatCard`, `MatTable`, `MatPaginator`, `MatSort`, `MatDialog` y `MatSnackBar`.
+- **Seguridad y Validación:** Validación reactiva de formatos de placa, sanitización nativa frente a XSS y manejo de códigos HTTP semánticos (`200`, `201`, `400`, `404`, `422`).
+- **Ticket Digital:** Generación de ticket emergente de entrada y cálculo en vivo del cobro al registrar la salida de visitantes.
+- **Exportación a PDF:** Descarga directa de informes de facturación de residentes con tabla estructurada.
+- **Soporte CORS:** Habilitado para comunicación transparente entre `localhost:4200` y `localhost:8080`.
+
+---
+
+## 📸 Galería de Imágenes
+
+| | |
+| :---: | :---: |
+| ![](Screenshots/1.png) | ![](Screenshots/2.png) |
+| ![](Screenshots/3.png) | ![](Screenshots/4.png) |
+| ![](Screenshots/5.png) | ![](Screenshots/6.png) |
+| ![](Screenshots/7.png) | ![](Screenshots/8.png) |
+| ![](Screenshots/9.png) | ![](Screenshots/10.png) |
+| ![](Screenshots/12.png) | ![](Screenshots/13.png) |
+| ![](Screenshots/14.png) | ![](Screenshots/15.png) |
+| ![](Screenshots/16.png) | ![](Screenshots/17.png) |
+| ![](Screenshots/18.png) | ![](Screenshots/19.png) |
+| ![](Screenshots/21.png) | ![](Screenshots/22.png) |
+| ![](Screenshots/23.png) | |
+
+---
+*Desarrollado para el proceso de evaluación técnica de Neology.*
 
